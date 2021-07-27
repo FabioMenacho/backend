@@ -1,14 +1,22 @@
-# libreria alumnos
-# guardamos todas las funciones a utilizar en otro archivo (main)
+from practicaLibEscuela import clsAlumno
 
+def menuopciones():
+    print("*" * 20)
+    print("[1] REGISTRAR ALUMNO")
+    print("[2] MOSTRAR ALUMNO")
+    print("[3] ACTUALIZARAR ALUMNO")
+    print("[4] ELIMINAR ALUMNO")
+    print("*" * 20)
+    
 def grabarAlumnos(lstAlumnos):
     strAlumnos = ""
     for a in lstAlumnos:
-        strAlumnos += "\n"
         for clave,valor in a.items():
             strAlumnos += valor
             if clave != 'celular':
                 strAlumnos += ','
+            else:
+                strAlumnos += "\n"
     return strAlumnos
 
 def cargarAlumnos(strAlumnos):
@@ -22,14 +30,9 @@ def cargarAlumnos(strAlumnos):
         nombre = lstObjAlumno[0]
         email = lstObjAlumno[1]
         celular = lstObjAlumno[2]
-        dictAlumno = {
-            'nombre': nombre,
-            'email': email,
-            'celular': celular
-        }
+        dictAlumno = clsAlumno(nombre, email, celular)
         lstAlumnosData.append(dictAlumno)
     return lstAlumnosData
-    
 
 def createAlumno(nombre, email, celular,alumnos):
     nuevoAlumno = {
@@ -40,17 +43,13 @@ def createAlumno(nombre, email, celular,alumnos):
     alumnos.append(nuevoAlumno)
     return alumnos
 
-    
-    # palabra reservada para que no tenga código
-    # pass
-    
 def readAlumno(alumnos):
     print("LISTADO DE ALUMNOS")
     for a in alumnos:
         print("===========")
         for clave,valor in a.items():
             print(clave + " : " + valor)
-
+            
 def updateAlumno(alumnos):
     print("ACTUALIZAR ALUMNO")
     posAlumno= -1

@@ -1,4 +1,5 @@
 # importo no toda la libreria random sino solamente choice para que no pese, ver documentación de pyhton
+# random esta incluida en python, no es necesario bajarla
 from random import choice
 
 

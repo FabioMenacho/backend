@@ -36,7 +36,7 @@ print(a)
 print(alumnos.keys())
 print(alumnos.values())
 
-for clave in alumnos:
+for clave in alumnos.items():
     print(clave,alumnos[clave])
     
 for clave in alumnos.keys():
