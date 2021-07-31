@@ -1,0 +1,10 @@
+{% extends 'basebs.html' %}
+{%block title %} Sistema POS {% endblock%}
+    {%block content %}
+        <H1>HOLA {{ nombre }}</H1>
+        <p>Tu dirección IP ES : {{ user_ip }}</p>
+        {% if user_ip == '127.0.0.1' %}
+            <h2>Esta conectado desde su pc local</h2>
+        {% endif %}
+        
+    {% endblock %}

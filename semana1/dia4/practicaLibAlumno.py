@@ -8,15 +8,10 @@ def menuopciones():
     print("[4] ELIMINAR ALUMNO")
     print("*" * 20)
     
-def grabarAlumnos(lstAlumnos):
+def grabarAlumnos(alumnos):
     strAlumnos = ""
-    for a in lstAlumnos:
-        for clave,valor in a.items():
-            strAlumnos += valor
-            if clave != 'celular':
-                strAlumnos += ','
-            else:
-                strAlumnos += "\n"
+    for a in alumnos:
+      strAlumnos += a.nombre + "," + a.email + "," + a.celular + "\n"
     return strAlumnos
 
 def cargarAlumnos(strAlumnos):
@@ -34,44 +29,36 @@ def cargarAlumnos(strAlumnos):
         lstAlumnosData.append(dictAlumno)
     return lstAlumnosData
 
-def createAlumno(nombre, email, celular,alumnos):
-    nuevoAlumno = {
-            'nombre': nombre,
-            'email': email,
-            'celular': celular
-        }
-    alumnos.append(nuevoAlumno)
+def createAlumno(alumnos):
+    nombre = input("NOMBRE:")
+    email = input("EMAIL:")
+    celular = input("CELULAR:")
+    alumno = clsAlumno(nombre,email,celular)
+    alumnos.append(alumno)
     return alumnos
 
 def readAlumno(alumnos):
     print("LISTADO DE ALUMNOS")
     for a in alumnos:
-        print("===========")
-        for clave,valor in a.items():
-            print(clave + " : " + valor)
-            
+        print("=" * 40)
+        print(a.nombre, a.email, a.celular)
+    print("=" * 40)
+    
 def updateAlumno(alumnos):
     print("ACTUALIZAR ALUMNO")
     posAlumno= -1
     alumnoBusqueda = input("INGRESE EL NOMBRE DEL ALUMNO: ")
-    for i in range(len(alumnos)):
-        a = alumnos[i]
-        # print("===========")
-        for clave,valor in a.items():
-            if valor == alumnoBusqueda:
-                print(a)
-                posAlumno = i
-                print("Posición del alumno: " + str(posAlumno))
-                break
+    for a in alumnos:
+        if a.nombre == alumnoBusqueda:
+            print(a)
+            posAlumno = posAlumno+1
+            print("Posición del alumno: " + str(posAlumno))
+            break
             
     print("ACTUALIZANDO DATOS DEL ALUMNO:")
     nombre = input("NOMBRE:")
     email = input("EMAIL:")
     celular = input("CELULAR:")
-    actAlumno = {
-        'nombre': nombre,
-        'email': email,
-        'celular': celular
-    }
+    alumno = clsAlumno(nombre,email,celular)
     del alumnos[posAlumno]
-    alumnos.insert(posAlumno,actAlumno)
+    alumnos.insert(posAlumno,alumno)

@@ -1,18 +1,15 @@
-# Abrir un entorno virtual: abri el vlinux
 from flask import Flask, request
+
 app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return '<h1>HOLA MUNDO FLASK</h1>'
-
+    return '<h1>Hola Fabio</h1>'
 
 @app.route('/saludo')
 def saludo():
-    # request para pasar variables por la url (se leen desde la url)
     nombre = request.args.get('n','no puso su nombre')
     return 'Hola {}'.format(nombre)
-
 
 @app.route('/suma')
 def sumando():
@@ -21,11 +18,9 @@ def sumando():
     suma = int(n1) + int(n2)
     return 'La suma de {} + {} es {}'.format(n1,n2,suma)
 
-
 @app.route('/operacion/')
 @app.route('/operacion/<tipo>/')
-# es mejor ya que no se coloca nombres de variables
-# la ruta es /operacion/variable
+@app.route('/operacion/<tipo>/<int:n1>/')
 @app.route('/operacion/<tipo>/<int:n1>/<int:n2>')
 def operacion(tipo="indicar tipo", n1=0, n2=0):
     if tipo == "suma" and n1>0 and n2>0:
@@ -38,29 +33,6 @@ def operacion(tipo="indicar tipo", n1=0, n2=0):
         resultado = "Falta ingresar datos"
     return '{}'.format(resultado)
 
-
-# metodo get es por defecto para el post tenemos que agregarlo
-# @app.route('/calcular',methods=['POST'])
-# # solo se ejecuta cuando se envia un formulario con el method post
-# def calcular():
-#     if request.method == 'POST':
-#         n1 = request.form['n1']
-#         n2 = request.form['n2']
-#         resultado = int(n1) + int(n2)
-#         return 'La suma de {} + {} es {}'.format(n1,n2,resultado)     
-
-# @app.route('/calculadora')
-# def calculadora():
-#     # action envia a calcular
-#     form = "<form action='calcular' method='POST'>"
-#     form += "<input type='text' name='n1' size='5'/> + "
-#     form += "<input type='text' name='n2' size='5'/> "
-#     form += "<input type='submit' value='calcular'/>"
-#     form +=  "</form>"
-#     return form
-
-# GET para colocar el form (pintar el formulario)
-# POST porque los valores son recibidos
 @app.route('/calculadora',methods=['GET','POST'])
 def calculadora():
     form = "<form action='calculadora' method='POST'>"
@@ -69,6 +41,7 @@ def calculadora():
     form += "<input type='text' name='n2' size='5'/> "
     form += "<input type='submit' value='calcular'/>"
     form +=  "</form>"
+    
     if request.method == 'POST':
         n1 = request.form['n1']
         n2 = request.form['n2']
@@ -77,8 +50,8 @@ def calculadora():
             resultado = int(n1) + int(n2)
         elif ope == "-":
             resultado = int(n1) - int(n2)
-                        
-        form += '<h2>El resultado es: {}</h2>'.format(resultado)      
+                            
+        form += '<h2>El resultado es: {}</h2>'.format(resultado) 
     return form
 
 if __name__ == '__main__':

@@ -1,0 +1,20 @@
+{% extends 'bootstrap/base.html' %}
+{% block title %} Sistema POS {% endblock %}
+{% block body %}
+    {% block navbar %}
+        {% include 'navbar.html' %}
+    {% endblock %}
+    <!-- este block es de base -->
+    {% block content %}
+    {% endblock %}
+
+    {% block footer %}
+        {% include 'footer.html' %}    
+    {% endblock %}
+
+    {% block scripts %}
+        {{ super() }}
+    {% endblock %}
+
+{% endblock %}
+

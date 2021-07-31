@@ -1,5 +1,8 @@
+# tkinter viene instalada en python 
 from tkinter import *
 from tkinter.ttk import Treeview
+# abrir el ejecutable
+# sqlite3 está por defecto en python
 import sqlite3
 
 class Alumno:
@@ -16,8 +19,9 @@ class Alumno:
         return resultado
     
     def readAlumnos(self):
+        # trae todos los valores
         rsAlumnos = self.trvAlumnos.get_children()
-        #limpiando la tabla
+        #limpiando la tabla (los borro)
         for a in rsAlumnos:
             self.trvAlumnos.delete(a)
             
@@ -51,7 +55,7 @@ class Alumno:
         lbNombre.grid(row=1,column=0)
         # otra forma es:
         # Label(frame, text = 'Nombre: ').grid(row=1,column=0)
-        # capturo la caja con self.nombre, la variable seria nombre dentro del frame window
+        # creo la cajita con entry y capturo self.nombre, la variable seria nombre dentro del frame window
         self.nombre = Entry(frame)
         self.nombre.grid(row=1,column=1)
         
@@ -80,7 +84,10 @@ class Alumno:
         
         self.readAlumnos()
         
-
+# clase window
 window = Tk()
+# clase app
+# pasamos la clase alumno (que contiene la ventana window) a la aplicacion app
 app = Alumno(window)
+# crea la interface (while continuo)
 window.mainloop() 

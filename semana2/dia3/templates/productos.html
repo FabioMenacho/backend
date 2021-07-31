@@ -1,0 +1,14 @@
+<!-- copio todo el html de base -->
+{% extends 'basebs.html' %}
+<!-- invoco block title -->
+{% block title %}
+<!-- para agregar productos al titulo del padre -->
+    {{ super() }} - Productos
+{% endblock %}
+{% block content %}
+    <ul>
+        {% for p in productos %}
+            <li>producto: {{ p }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

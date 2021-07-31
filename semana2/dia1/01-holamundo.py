@@ -1,6 +1,6 @@
 # de la libreria flask importar la clase Flask
 from flask import Flask
-# aplcación q recibe un nombre
+# aplicación q recibe un nombre
 app = Flask(__name__)
 # hasta aca levanta un servidor de desarrollo (pruebas)
 # debug mode off (inactivo) los cambios no son automaticos, debo deterne con ctrl+c y ejecutar de nuevo 
