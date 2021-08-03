@@ -1,4 +1,5 @@
 # Jinja viene incorporado en flask
+# instalar: pip install flask-mysqldb
 from flask import Flask, render_template
 from flask.globals import request
 from flask_bootstrap import Bootstrap
@@ -22,12 +23,11 @@ Bootstrap(app)
 lstProductos = ['laptop', 'impresora HP', 'silla gamer']
 
 @app.route('/')
-def index():
-    # importar render_template para poder levantar el archivo html
+def index():    
     # solo carga des una carpeta llamada template (no cambiar ese nombre)
     # name = request.args.get('n','invalido')
     # user_ip = request.remote_addr
-    
+    # return render_template('index.html', nombre=name, user_ip=user_ip)
     # creamos un cursor
     cur = mysql.connection.cursor()
     # ejecuto la consulta
@@ -48,8 +48,8 @@ def index():
     #     'user_ip': user_ip,
     #     'productos': lstProductos
     # }
-    # pasar la variable nombre al html: nombre=name
     # si es diccionario con doble *
+    # importar render_template para poder levantar el archivo html
     return render_template('index.html', **context)
 
 @app.route('/productos')

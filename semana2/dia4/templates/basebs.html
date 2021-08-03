@@ -1,5 +1,4 @@
 {% extends 'bootstrap/base.html' %}
-{% block title %} Sistema POS {% endblock %}
 {% block body %}
     {% block navbar %}
         {% include 'navbar.html' %}
@@ -11,10 +10,9 @@
     {% block footer %}
         {% include 'footer.html' %}    
     {% endblock %}
-    <!-- estos scripts son para que funcionen los java del bootstrap y se llaman del padre con super, el block scrips está definido para que jale solo los scripts -->
+
     {% block scripts %}
         {{ super() }}
     {% endblock %}
 
 {% endblock %}
-

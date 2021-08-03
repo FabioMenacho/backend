@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- creo bloques para herencia -->
+    <!-- block crea una seccion para la herencia y para modificar desde el archivo hijo -->
+    <title>        
+        {% block title %}
+        Sistema POS
+        {% endblock %}
+    </title>
+    <!-- url_for enrutamiento de flask -->
+    <link rel="stylesheet" href="{{ url_for('static',filename='css/main.css')}}"
+</head>
+<body>
+    <header>
+        <img src="{{ url_for('static',filename='images/foto.jpg')}}" alt="" />
+        <!-- ruta al inicio -->
+        <a href="{{ url_for('index')}}"> <br /> INICIO</a>
+    </header>
+    <!-- para poder reescribir en otras paginas hijas -->
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
