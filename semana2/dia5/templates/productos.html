@@ -12,14 +12,14 @@
 
 <form action="{{ url_for('productos') }}" method='POST'>
     CATEGORIA: <select name="categoria" id="" onchange="this.form.submit()">
-            <option value="0">TODOS</option>
-        {% for categoria in dataCategoria %}
-            <option value="{{categoria.0}}" 
-            {% if catId == categoria.0 %}
-                selected
-            {% endif %}
-            >{{categoria.1}}</option>
-        {% endfor%}
+      <option value=0>TODOS</option>
+      {% for categoria in dataCategoria %}
+          {% set miselected = '' %}
+          {% if(catId|int == categoria.0|int ) %}
+              {% set miselected = 'selected' %}
+          {% endif %}
+      <option value="{{ categoria.0 }}" {{miselected}} >{{ categoria.1 }}</option>
+      {% endfor %}
     </select>
 </form>
 
@@ -32,17 +32,26 @@
         <th scope="col">MARCA</th>
         <th scope="col">PRECIO</th>
         <th scope="col">STOCK</th>
+        <th scope="col"></th>
+        <th scope="col"></th>
       </tr>
     </thead>
     <tbody>
         {% for d in dataProducto %}
       <tr>
-        <th scope="row">{{ d.0 }}</th>
+        <th scope="row"> {{ d.0 }} </th>
         <td>{{ d.1 }}</td>
         <td>{{ d.2 }}</td>
         <td>{{ d.3 }}</td>
         <td>{{ d.9 }}</td>
         <td>{{ d.10 }}</td>
+        <td><a href="{{ url_for('productos') }}?pid={{ d.0 }}"> <button class="btn btn-success"> EDITAR </button> </a></td>
+        <td>
+          <form action="{{ url_for('eliminarProducto') }}" method="POST">
+            <input type="hidden" name="eid" value="{{ d.0 }}" />
+            <input type="submit" value="ELIMINAR" class="btn btn-danger"/>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
