@@ -28,7 +28,7 @@ Bootstrap(app)
 
 # formularios
 class frmProducto(FlaskForm):
-    id = HiddenField("hdnId")
+    id = HiddenField()
     categoria = StringField('Categoria: ',validators=[DataRequired()])
     nombre = StringField('Nombre: ',validators=[DataRequired()])
     marca = StringField('Marca: ',validators=[DataRequired()])
@@ -96,7 +96,7 @@ def productos():
     
     frmNuevoProducto = frmProducto()
     
-    pId = request. args.get('pid','0')
+    pId = request.args.get('pid','0')
     # print("Id del producto seleccionado =" + pId)
     
     # Cargamos el producto a editar
@@ -131,7 +131,7 @@ def productos():
     }
     
     if frmNuevoProducto.validate_on_submit():
-        
+        # el id es un form oculto
         id = frmNuevoProducto.id.data
         # data trae la información, el valor
         categoriaId = frmNuevoProducto.categoria.data
@@ -147,7 +147,8 @@ def productos():
         
         # print("Producto a editar: " + str(id))
         
-        if id != '0':
+        
+        if id != '':
             # actualizar producto
             print("Actualizamos")
             curUpdateProducto = mysql.connection.cursor()
