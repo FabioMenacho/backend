@@ -1,28 +1,18 @@
-# instalar: pip install flask
-# instalar: pip install flask-sqlalchemy
-# instalar: pip install marshmallow-sqlalchemy
-# instalar: pip install flask-marshmallow
-# instalar: pip install pymysql (para conectarnos a la base de datos mysql, similar a mysqldb)
 from flask import Flask
-# para devolver json y no html
 from flask import jsonify, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = mysql+libreria://usuario:clave@servidor/base de datos creada
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/flaskapi'
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:@localhost/practica_flaskapi'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 ma = Marshmallow(app)
 
-# clases para bd
-# representa la tabla x eso le hacen las consultas
-# SQLAlchemy es una super clase y Model es una sub-clase para hacer tablas
 class Alumno(db.Model):
-    # al poner primary key ya es autoincrement
-    # falta ver la actualizacion de la tabla
+    
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), unique=True)
@@ -32,16 +22,12 @@ class Alumno(db.Model):
         self.email=email
 
 db.create_all()
-    
-# Marshmallow es una superclase y schema es una sub-clase para ordenar hacer esquemas
+        
 class AlumnosSchema(ma.Schema):
-    # determina que campos retornar 
     class Meta:
         fields = ('id', 'nombre', 'email')
-        
-#para retornar 1 alumno
+
 alumno_schema = AlumnosSchema()
-#para retornar todos los alumnos many=True
 alumnos_schema = AlumnosSchema(many=True)
 
 @app.route('/')
@@ -51,10 +37,11 @@ def index():
 
 @app.route('/setAlumno',methods=['POST'])
 def setAlumno():
+    # como es API lenguaje json se aplica esete request.json
     nombre = request.json['nombre']
     email = request.json['email']    
     
-    # equivalente a insert into alumno values
+    # equivalente a insert into alumno values y se hace sobre la clase ya que es la representación de la tabla
     nuevoAlumno = Alumno(nombre, email)
     db.session.add(nuevoAlumno)
     db.session.commit()
@@ -70,14 +57,6 @@ def getAlumnos():
     print(dataAlumnos)
     
     return jsonify(dataAlumnos)
-
-@app.route('/getAlumno/<id>', methods=['GET'])
-def getAlumno(id):
-    # select * from where id=
-    alumno = Alumno.query.get(id)
-    print(alumno)
-    
-    return alumno_schema.jsonify(alumno)
 
 @app.route('/updateAlumno/<id>', methods=['PUT'])
 def updateAlumno(id):
@@ -104,6 +83,7 @@ def delAlumno(id):
     db.session.commit()
 
     return alumno_schema.jsonify(alumno)
+
 
 if __name__ == "__main__":
     app.run(debug=True)
