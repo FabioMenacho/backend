@@ -8,6 +8,7 @@
 </head>
 <body>
     <h1>{{ titulo }}</h1>
+    <!-- para que genere el token -->
     <form action="{% url 'encuesta:enviar' %}" method="post">
         {% csrf_token %}
         Nombre :<input type="text" name="nombre"></br>
