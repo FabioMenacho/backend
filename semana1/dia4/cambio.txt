@@ -4,3 +4,15 @@ Libra Esterlina | 5.427 | 5.471
 Peso Mexicano |   | 0.227
 Franco Suizo | 4.290 | 4.290
 Euro | 4.535 | 4.941
+Dólar de N.A. | 4.071 | 4.081
+Libra Esterlina |   | 6.135
+Yen Japonés | 0.037 |  
+Peso Mexicano |   | 0.227
+Franco Suizo | 4.397 | 4.632
+Euro | 4.697 | 5.029
+Dólar de N.A. | 4.071 | 4.081
+Libra Esterlina |   | 6.135
+Yen Japonés | 0.037 |  
+Peso Mexicano |   | 0.227
+Franco Suizo | 4.397 | 4.632
+Euro | 4.697 | 5.029

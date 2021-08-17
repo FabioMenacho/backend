@@ -18,5 +18,6 @@ from django.urls import path, include
 
 urlpatterns = [
     path('encuestas/', include('encuesta.urls')),
+    # no tiene admin
     path('admin/', admin.site.urls),
 ]

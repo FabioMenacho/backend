@@ -28,10 +28,10 @@ def votar(request, pregunta_id):
 
 def resultado(request, pregunta_id):
     pregunta = Pregunta.objects.get(id=pregunta_id)
-    # capturar opcion seleccionada
+    # capturar opcion seleccionada, opcion viene del html
     opcionSeleccionada = request.POST['opcion']
     opcion = pregunta.opcion_set.get(id=opcionSeleccionada)
     opcion.votos += 1
-    # actualizo los votos
+    # actualizo los votos en la bd
     opcion.save()
     return redirect('/encuestas/' + str(pregunta.id) + '/')

@@ -22,3 +22,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('tienda/', include('tienda.urls')),
 ] + static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
+# para que el archivo se guarde en un directorio
