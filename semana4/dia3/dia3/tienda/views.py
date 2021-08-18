@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Producto, Cliente
 from django.conf import settings
+# lo importamos de nuestro archivo forms las clases ClienteGForm y usuarioForm
 from .forms import ClienteForm, UsuarioForm
 from django.contrib.auth.models import User
 
@@ -25,13 +26,13 @@ def registro(request):
             # lo sacamos de forms.py
             dataUsuario = data['usuario']
             dataPassword = data['clave']       
-            # creamos usuarios para la tabla auth_user
+            # creamos usuarios para la tabla auth_user sino no puedo crear la tabla cliente
             nuevoUsuario = User.objects.create_user(username=dataUsuario, password=dataPassword)
             nuevoUsuario.first_name = data['nombres']
             nuevoUsuario.last_name = data['apellidos']
             nuevoUsuario.email = data['email']
             nuevoUsuario.save()
-            # creamos datos para la tabal cliente
+            # creamos datos para la tabla cliente
             nuevoCliente = Cliente(usuario=nuevoUsuario)
             nuevoCliente.telefono = data['telefono']
             nuevoCliente.direccion = data['direccion']

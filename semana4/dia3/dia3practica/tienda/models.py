@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -20,3 +21,11 @@ class Producto(models.Model):
     def __str__(self):
         return self.nombre
     
+class Cliente(models.Model):
+    usuario = models.OneToOneField(User, on_delete=models.RESTRICT)
+    doc_ide =  models.CharField(max_length=20, unique=True)
+    direccion = models.CharField(max_length=200, blank=True)
+    telefono = models.CharField(max_length=200, blank=True)
+    
+    def __str__(self):
+        return self.usuario.username
