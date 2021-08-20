@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from .models import Categoria, Producto, Cliente
+from .models import Categoria, Producto, Cliente, Pedido, PedidoDetalle
 
 admin.site.register(Categoria)
 # admin.site.register(Producto)
@@ -17,3 +17,11 @@ class ProductoAdmin(admin.ModelAdmin):
     search_fields = ['nombre']
     
 admin.site.register(Cliente)
+
+@admin.register(Pedido)
+class PedidoAdmin(admin.ModelAdmin):
+    list_display = ('id','cliente','fecha','total')
+    
+@admin.register(PedidoDetalle)
+class PedidoDetalleAdmin(admin.ModelAdmin):
+    list_display = ('id','producto','cantidad','subtotal')

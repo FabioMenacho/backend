@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.deletion import RESTRICT
+from django.db.models.fields import DecimalField, IntegerField
 
 # Create your models here.
 
@@ -13,7 +15,7 @@ class Categoria(models.Model):
 class Producto(models.Model):
     categoria = models.ForeignKey(Categoria, on_delete=models.RESTRICT)
     nombre = models.CharField(max_length=200)
-    precio = models.DecimalField(max_digits=6, decimal_places=2)
+    precio = models.DecimalField(max_digits=10, decimal_places=2)
     stock = models.IntegerField(default=0)
     pub_date = models.DateTimeField('fecha registro')
     imagen = models.ImageField(upload_to='productos', blank=True, null=True)
@@ -31,3 +33,6 @@ class Cliente(models.Model):
     
     def __str__(self):
         return self.usuario.username
+    
+
+    

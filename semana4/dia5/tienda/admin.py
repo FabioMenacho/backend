@@ -18,3 +18,4 @@ class ProductoAdmin(admin.ModelAdmin):
     
 # Para que un cliente sea administrador (no se quiere esto)
 admin.site.register(Cliente)
+

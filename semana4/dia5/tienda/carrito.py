@@ -3,9 +3,9 @@ class Cart:
         self.request = request
         # session esta dentro de request
         self.session = request.session
-        # session se almacena en cart
+        # consulta la session y almacena en cart el objeto cart q tiene
         cart = self.session.get("cart")
-        # si no hay carrito lo crea
+        # si no hay carrito almacena la session en cart y crea carrito vacio
         if not cart:
             cart = self.session["cart"] = {}
         self.cart = cart
@@ -13,6 +13,7 @@ class Cart:
     def add(self, producto,qty):
         # si el producto no se encuentra lo crea 
         if str(producto.id) not in self.cart.keys():
+            # cart es el objeto, producto.id el key y lo q esta dentro es el value
             self.cart[producto.id] = {
                 "producto_id": producto.id,
                 "nombre": producto.nombre,
@@ -21,7 +22,7 @@ class Cart:
                 "imagen": producto.imagen.url,
                 "total": str(qty * producto.precio)
             }
-        # si existe el producto se le suma 1
+        # si existe el producto se actualiza la cantidad y el total
         else:
             for key,value in self.cart.items():
                 if key == str(producto.id):
