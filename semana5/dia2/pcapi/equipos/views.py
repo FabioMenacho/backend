@@ -47,6 +47,7 @@ def crearEmpleado(request):
     # data = serializer.data
     # print("data")
     # print(data)
+    # lo de abajo se ha reescrito en el archivo serializer
     # nuevoEmpleado = Empleado.objects.create(**data)    
     
     return Response(EmpleadoSerializer(nuevoEmpleado).data)

@@ -1,26 +1,49 @@
 from django.db import models
 from django.db.models.deletion import RESTRICT
+from django.contrib.auth.models import User
 
 # Create your models here.
 
 class Categoria(models.Model):
-    nombre = models.CharField(max_length=100)
+    # para colocar los nombres como salen en el API 
+    # el autoincremento es el id (pk) y se incrementa solo en mysql pero ahora le ponemos el autoincremento desde  aca
+    categoria_id = models.AutoField(primary_key=True)
+    categoria_nom = models.CharField(max_length=100,verbose_name="nombre")
     
     def __str__(self):
-        return self.nombre
+        return self.categoria_nom
     
 class Plato(models.Model):
-    categoria = models.ForeignKey(Categoria,on_delete=models.RESTRICT)
-    nombre = models.CharField(max_length=200)
-    imagen = models.ImageField(upload_to='platos',blank=True,null=True)
-    precio = models.DecimalField(max_digits=10,decimal_places=2)
+    plato_id = models.AutoField(primary_key=True)
+    plato_nom = models.CharField(max_length=200,verbose_name="nombre")
+    plato_img = models.ImageField(upload_to='platos',blank=True,null=True,verbose_name="imagen")
+    plato_pre = models.DecimalField(max_digits=10,decimal_places=2,default=0,verbose_name="precio")
+    categoria_id = models.ForeignKey(Categoria,related_name='Platos',to_field="categoria_id",on_delete=models.RESTRICT,db_column='categoria_id',verbose_name="Categoria")
     
     def __str__(self):
-        return self.nombre
+        return self.plato_nom
     
 class Mesa(models.Model):
-    numero = models.CharField(max_length=10)
-    capacidad = models.IntegerField(default=0)
+    mesa_id = models.AutoField(primary_key=True)
+    mesa_nro = models.CharField(max_length=10,verbose_name="Nro mesa")
+    mesa_cap = models.IntegerField(default=0,verbose_name="Capacidad")
     
     def __str__(self):
-        return self.numero
+        return self.mesa_nro
+    
+
+class Pedido(models.Model):
+    pedido_id = models.AutoField(primary_key=True)
+    pedido_fech = models.DateTimeField(null=True,verbose_name="Fecha")
+    pedido_nro = models.CharField(max_length=100,default='',verbose_name="Nro pedido")
+    pedido_est = models.CharField(max_length=100,default='pagado',verbose_name="Estado")
+    usu_id = models.ForeignKey(User,related_name='Pedidos',to_field="id",on_delete=models.RESTRICT,db_column='usu_id',verbose_name="Usuario")
+    mesa_id = models.ForeignKey(Mesa,related_name='Pedidos',to_field="mesa_id",on_delete=models.RESTRICT,db_column='mesa_id',verbose_name="Mesa")
+    
+
+class PedidoPlatos(models.Model):
+    pedidoplato_id = models.AutoField(primary_key=True)
+    pedidoplato_cant = models.IntegerField(default=1)
+    plato_id = models.ForeignKey(Plato,related_name='PedidoPlato',to_field="plato_id",on_delete=models.RESTRICT,db_column='plato_id',verbose_name="Plato")
+    pedido_id = models.ForeignKey(Pedido,related_name='PedidoPlato',to_field="pedido_id",on_delete=models.RESTRICT,db_column='pedido_id',verbose_name="Pedido")
+    

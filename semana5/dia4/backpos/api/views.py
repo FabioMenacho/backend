@@ -3,7 +3,7 @@ from rest_framework.response import Response
 # importar modelos
 from .models import Categoria, Mesa, Plato
 # importar serializers
-from .serializers import CategoriaSerializer, MesaSerializer
+from .serializers import CategoriaSerializer, MesaSerializer, CategoriaPlatosSerializer, PedidoPlatosSerializerPOST
 
 
 # para cambiar la presentación del API
@@ -47,4 +47,16 @@ class MesaApiView(APIView):
         return Response(serializer.data)
     
 
+class CategoriaPlatosApiView(APIView):
+    def get(self,request,categoria_id):
+        dataCategoria = Categoria.objects.get(categoria_id=categoria_id)
+        serializer = CategoriaPlatosSerializer(dataCategoria)
+        return Response(serializer.data)
 
+
+class PedidoApiView(APIView):
+    def post(self,request):
+        serializer = PedidoPlatosSerializerPOST(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
