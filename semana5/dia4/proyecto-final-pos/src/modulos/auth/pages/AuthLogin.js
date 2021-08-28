@@ -13,7 +13,7 @@ const AuthLogin = (props) => {
 
 	const [formulario, setFormulario] = useState({
 		correo: 'jgarnica@gmail.com',
-		password: '123456'
+		password: '20125016d'
 	});
 
 	const handleChange = (e) => {

@@ -20,10 +20,10 @@ export const iniciarSesionAction = (correo, password) => {
 	return async (dispatch) => {
 		dispatch(inicioCargandoLogin());
 
-		const endpoint = `${URL_BACKEND}/login`;
+		const endpoint = `${URL_BACKEND}/login/`;
 		const response = await axios.post(
 			endpoint,
-			JSON.stringify({ correo: correo, password: password }),
+			JSON.stringify({ username: correo, password: password }),
 			{
 				headers: {
 					'Content-type': 'application/json'
@@ -31,6 +31,7 @@ export const iniciarSesionAction = (correo, password) => {
 			}
 		);
 		if (response.status === 200) {
+			console.log(response.data);
 			let { token } = response.data;
 			localStorage.setItem('token', token);
 			let payload = token.split('.')[1];
@@ -59,14 +60,15 @@ export const iniciarSesionLocalStorage = () => {
 		// para capturar el error
 		try {
 			if (token) {
-				const endpoint = `${URL_BACKEND}/verificar`
-				const response = await axios.post(endpoint, null, {
-					headers: {
-						authorization: `Bearer ${token}`
-					}
-				})
-				console.log(response);
-				if (response.data.ok) {
+				// const endpoint = `${URL_BACKEND}/verificar`
+				// const response = await axios.post(endpoint, null, {
+				// 	headers: {
+				// 		authorization: `Bearer ${token}`
+				// 	}
+				// })
+				// console.log(response);
+				// response.data.ok
+				if (1==1) {
 					let payload = token.split('.')[1];
 					let payloadDecoded = atob(payload);
 					let payloadJSON = JSON.parse(payloadDecoded);

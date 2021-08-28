@@ -1,9 +1,15 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 # importar modelos
-from .models import Categoria, Mesa, Plato
+from .models import Categoria, Mesa, Plato, Pedido
 # importar serializers
-from .serializers import CategoriaSerializer, MesaSerializer, CategoriaPlatosSerializer, PedidoPlatosSerializerPOST
+from .serializers import CategoriaSerializer, MesaSerializer, CategoriaPlatosSerializer, PedidoSerializerPOST, TokenObtainPairSerializer, PedidoSerializerGET, PlatoSerializerGET
+
+from rest_framework_simplejwt.views import TokenViewBase
+
+# para obtener la vista del serializer
+class TokenObtainPairView(TokenViewBase):
+    serializer_class = TokenObtainPairSerializer
 
 
 # para cambiar la presentación del API
@@ -15,6 +21,25 @@ class Response(Response):
         data_content = {
             'ok': True,
             'content': data
+        }
+        super(Response, self).__init__(
+            data=data_content,
+            status=status,
+            template_name=template_name,
+            headers=headers,
+            exception=exception,
+            content_type=content_type
+        )
+        
+    
+class ResponsePedidos(Response):
+    def __init__(self, data=None, message=None, data_status=None, status=None,
+                template_name=None, headers=None,
+                exception=False, content_type=None):
+        
+        data_content = {
+            'ok': True,
+            'pedidos': data
         }
         super(Response, self).__init__(
             data=data_content,
@@ -56,7 +81,19 @@ class CategoriaPlatosApiView(APIView):
 
 class PedidoApiView(APIView):
     def post(self,request):
-        serializer = PedidoPlatosSerializerPOST(data=request.data)
+        serializer = PedidoSerializerPOST(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
+        return Response(serializer.data)
+    
+    def get(self,request):
+        dataPedido = Pedido.objects.all()
+        serializer = PedidoSerializerGET(dataPedido,many=True)
+        return ResponsePedidos(serializer.data)
+    
+
+class PlatoApiView(APIView):
+    def get(self,request):
+        dataPlato = Plato.objects.all()
+        serializer = PlatoSerializerGET(dataPlato,many=True)
         return Response(serializer.data)

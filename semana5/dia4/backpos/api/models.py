@@ -37,13 +37,13 @@ class Pedido(models.Model):
     pedido_fech = models.DateTimeField(null=True,verbose_name="Fecha")
     pedido_nro = models.CharField(max_length=100,default='',verbose_name="Nro pedido")
     pedido_est = models.CharField(max_length=100,default='pagado',verbose_name="Estado")
-    usu_id = models.ForeignKey(User,related_name='Pedidos',to_field="id",on_delete=models.RESTRICT,db_column='usu_id',verbose_name="Usuario")
-    mesa_id = models.ForeignKey(Mesa,related_name='Pedidos',to_field="mesa_id",on_delete=models.RESTRICT,db_column='mesa_id',verbose_name="Mesa")
+    usu_id = models.ForeignKey(User,to_field="id",on_delete=models.RESTRICT,db_column='usu_id',verbose_name="Usuario")
+    mesa_id = models.ForeignKey(Mesa,to_field="mesa_id",on_delete=models.RESTRICT,db_column='mesa_id',verbose_name="Mesa")
     
 
 class PedidoPlatos(models.Model):
     pedidoplato_id = models.AutoField(primary_key=True)
     pedidoplato_cant = models.IntegerField(default=1)
-    plato_id = models.ForeignKey(Plato,related_name='PedidoPlato',to_field="plato_id",on_delete=models.RESTRICT,db_column='plato_id',verbose_name="Plato")
-    pedido_id = models.ForeignKey(Pedido,related_name='PedidoPlato',to_field="pedido_id",on_delete=models.RESTRICT,db_column='pedido_id',verbose_name="Pedido")
+    plato_id = models.ForeignKey(Plato,related_name='pedidoplatos',to_field="plato_id",on_delete=models.RESTRICT,db_column='plato_id',verbose_name="Plato")
+    pedido_id = models.ForeignKey(Pedido,related_name='pedidoplatos',to_field="pedido_id",on_delete=models.RESTRICT,db_column='pedido_id',verbose_name="Pedido")
     

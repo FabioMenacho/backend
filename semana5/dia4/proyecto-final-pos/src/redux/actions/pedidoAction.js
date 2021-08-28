@@ -8,10 +8,10 @@ const setFinCargandoPedidosDB = () => ({type: FIN_CARGANDO_PEDIDOS_BD})
 export const getPedidoDB = () => {
 	return async (dispatch)=>{
 		dispatch(setInicioCargandoPedidosDB);
-
+		console.log("Mostrando pedidos");
 		const endpoint = `${URL_BACKEND}/pedido`;
 		const response = await axios.get(endpoint);
-
+		console.log(response.data.pedidos);
 		dispatch({
 			type: SET_PEDIDOS_BD,
 			payload: response.data.pedidos
