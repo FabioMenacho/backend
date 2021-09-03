@@ -1,0 +1,19 @@
+# Cloudinary settings for Django. Add to your settings file.
+CLOUDINARY = {
+  'cloud_name': 'di5bcs0gf',  
+  'api_key': '948365743191196',  
+  'api_secret': 'xzyz15pIdhdiuEqPBIl1n8gtKCE',  
+}
+
+# Cloudinary settings using environment variables. Add to your .bashrc
+export CLOUDINARY_CLOUD_NAME="di5bcs0gf"  
+export CLOUDINARY_API_KEY="948365743191196"  
+export CLOUDINARY_API_SECRET="xzyz15pIdhdiuEqPBIl1n8gtKCE"  
+
+# Cloudinary settings using python code. Run before pycloudinary is used.
+import cloudinary
+cloudinary.config(
+  cloud_name = 'di5bcs0gf',  
+  api_key = '948365743191196',  
+  api_secret = 'xzyz15pIdhdiuEqPBIl1n8gtKCE'  
+)
